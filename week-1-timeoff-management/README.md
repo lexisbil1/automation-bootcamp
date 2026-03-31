@@ -208,7 +208,9 @@ Configured automation to use **Record ID from the “Find Records” step**, ens
 
 ## 🎥 Demo
 
-> *(Add your demo video link here)*
+Watch the demo here:
+
+👉 https://www.youtube.com/watch?v=QGUzCWvCwB8
 
 ---
 
