@@ -216,7 +216,16 @@ Watch the demo here:
 
 ## 📸 Screenshots
 
-> *(Add screenshots of your Airtable tables, automations, and dashboard here)*
+## 📸 Screenshots
+
+### Airtable Tables
+![Airtable Table](screenshots/airtable-table.png)
+
+### Automations
+![Automation Flow](screenshots/automation-flow.png)
+
+### Dashboard
+![Dashboard](screenshots/dashboard.png)
 
 ---
 
