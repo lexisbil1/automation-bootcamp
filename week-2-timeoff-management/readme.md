@@ -51,7 +51,7 @@ Stores employee information and leave balances.
 - Employee Name  
 - Email  
 - Manager (Linked to Managers table)  
-- Leave Balance (Default: 22 days)  
+- Leave Balance (Default: 20 days)  
 - Department  
 
 ---
