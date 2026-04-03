@@ -22,6 +22,11 @@ An automated leave management system built with Airtable.
 ---
 
 ### Week 3: Crypto Watcher (Real-Time Alert System)
+
+![Automation](https://img.shields.io/badge/Automation-NoCode-blue)
+![Make](https://img.shields.io/badge/Tool-Make.com-purple)
+![API](https://img.shields.io/badge/API-CoinGecko-green)
+
 A real-time cryptocurrency monitoring system built using Make.com.
 
 **Features:**
