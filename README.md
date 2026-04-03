@@ -7,6 +7,10 @@ This repository contains my hands-on automation projects built during a no-code/
 ## 🚀 Projects
 
 ### Week 2: Employee Time-Off Management System
+
+![Airtable](https://img.shields.io/badge/Database-Airtable-blue)
+![Automation](https://img.shields.io/badge/Automation-Airtable%20Automations-orange)
+
 An automated leave management system built with Airtable.
 
 **Features:**
