@@ -1,5 +1,9 @@
 # 🚀 Crypto Watcher – Real-Time Alert System
 
+![Automation](https://img.shields.io/badge/Automation-NoCode-blue)
+![Make](https://img.shields.io/badge/Tool-Make.com-purple)
+![API](https://img.shields.io/badge/API-CoinGecko-green)
+
 A real-time cryptocurrency monitoring and alert system built using **Make.com**, **CoinGecko API**, **Google Sheets**, and **Lovable UI**.
 
 This system tracks live crypto market data, applies intelligent filtering logic, sends alerts across multiple channels, and visualizes data on a live dashboard.
