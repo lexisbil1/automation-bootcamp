@@ -4,7 +4,7 @@ This repository contains my hands-on automation projects built during a no-code/
 
 ## 🚀 Projects
 
-### Week 1: Employee Time-Off Management System
+### Week 2: Employee Time-Off Management System
 An automated leave management system built with Airtable.
 
 Features:
@@ -13,7 +13,7 @@ Features:
 - Automated leave balance updates
 - Email notifications
 
-📂 Folder: `/week-1-timeoff-management`
+📂 Folder: `/week-2-timeoff-management`
 
 ---
 
