@@ -1,5 +1,12 @@
 # 🚀 Advanced Lead Management Automation (Make.com)
 
+![Automation](https://img.shields.io/badge/Automation-NoCode-blue)
+![Platform](https://img.shields.io/badge/Platform-Make.com-purple)
+![Integration](https://img.shields.io/badge/Integration-Google%20Sheets-green)
+![Trigger](https://img.shields.io/badge/Trigger-Webhook-orange)
+![Logic](https://img.shields.io/badge/Logic-Lead%20Scoring-yellow)
+![Status](https://img.shields.io/badge/Status-Completed-brightgreen)
+
 This project is part of my **Automation Bootcamp – Week 3 Advanced Assessment**.
 
 It demonstrates a **production-style lead processing system** built using **Make.com**, designed to automate the entire lead lifecycle thus from capture to follow-up.
