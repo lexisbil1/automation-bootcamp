@@ -98,7 +98,7 @@ Time: 2026-04-03
 ## 🎥 Demo
 
 Watch the full walkthrough here:  
-👉 https://www.youtube.com/watch?v=QGUzCWvCwB8
+👉 https://www.youtube.com/watch?v=xpUvrlzvF1c
 
 ---
 
