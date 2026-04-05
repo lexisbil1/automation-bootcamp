@@ -48,7 +48,7 @@ A real-time cryptocurrency monitoring system built using Make.com.
 
 📂 Folder: `/week-3-crypto-watcher`
 
-🎥 Demo Video: https://www.youtube.com/watch?v=QGUzCWvCwB8
+🎥 Demo Video: https://www.youtube.com/watch?v=xpUvrlzvF1c
 
 ---
 
