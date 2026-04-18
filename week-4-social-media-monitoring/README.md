@@ -19,6 +19,8 @@ This project is an automated monitoring system that tracks online mentions of ke
 
 ![Architecture](./week-4-social-media-monitoring/screenshots/architecture.png)
 
+                  
+
 ---
 
 ## 🏗 Workflow Overview
