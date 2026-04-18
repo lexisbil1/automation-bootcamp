@@ -15,6 +15,12 @@ This project is an automated monitoring system that tracks online mentions of ke
 
 ---
 
+## 🏗 System Architecture
+
+![Architecture](./week-4-social-media-monitoring/screenshots/architecture.png)
+
+---
+
 ## 🏗 Workflow Overview
 
 Cron → HTTP Request → Data Processing → Sentiment Analysis → Routing → Alerts & Storage
