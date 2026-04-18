@@ -40,13 +40,17 @@ Cron → HTTP Request → Data Processing → Sentiment Analysis → Routing →
 
 ## 📸 Screenshots
 
-![Architecture](screenshots/n8n.png)
+### Workflow
+![Workflow](screenshots/n8n.png)
 
-![Architecture](screenshots/telegram_alert.png)
+### Airtable
+![Airtable](screenshots/Airtable_table.png)
 
-![Architecture](screenshots/architecture.png)
+### Telegram alert
+![Airtable](screenshots/Telegram_alert.png)
 
-![Architecture](screenshots/architecture.png)
+### Google Sheet
+![Airtable](screenshots/Google_Sheets.png)
 
 ---
 
