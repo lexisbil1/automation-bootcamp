@@ -56,7 +56,9 @@ Cron → HTTP Request → Data Processing → Sentiment Analysis → Routing →
 
 ## 🎥 Demo
 
-(Add your demo video link)
+Watch the demo here:
+
+👉 https://www.youtube.com/watch?v=QGUzCWvCwB8
 
 ---
 
