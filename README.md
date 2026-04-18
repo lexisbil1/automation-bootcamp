@@ -52,6 +52,18 @@ A real-time cryptocurrency monitoring system built using Make.com.
 
 ---
 
+### Week 4: Social Media Monitoring & Alerts System
+
+![Automation](https://img.shields.io/badge/Automation-NoCode-blue)
+![Make](https://img.shields.io/badge/Tool-N8N-purple)
+![API](https://img.shields.io/badge/API-NewsAPI-green)
+
+`n8n` `Automation` `API Integration` `Sentiment Analysis`
+
+An automated system that monitors online mentions, classifies sentiment using rule-based logic, and triggers alerts for negative mentions while logging all data.
+
+👉 [View Project](./week-4-social-media-monitoring)
+
 ## 🧠 Skills Gained
 
 - Workflow Automation
