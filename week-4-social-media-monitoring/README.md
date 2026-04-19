@@ -1,5 +1,10 @@
 # 🚨 Week 4: Social Media Monitoring & Alerts System
 
+![Airtable](https://img.shields.io/badge/Database-Airtable-blue)
+![Automation](https://img.shields.io/badge/Automation-N8N-orange)
+![Status](https://img.shields.io/badge/Project-Completed-success)
+![License](https://img.shields.io/badge/License-MIT-green)
+
 This project is an automated monitoring system that tracks online mentions of keywords, classifies sentiment using rule-based logic, and triggers alerts or stores results accordingly.
 
 ---
