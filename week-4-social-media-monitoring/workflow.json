@@ -1,0 +1,649 @@
+{
+  "name": "My workflow",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "minutes",
+              "minutesInterval": 15
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.3,
+      "position": [
+        -768,
+        -48
+      ],
+      "id": "327540e3-4fab-4b71-a825-95e1c3078fc1",
+      "name": "Schedule Trigger"
+    },
+    {
+      "parameters": {
+        "url": "https://newsapi.org/v2/everything?q=AI OR cybersecurity OR banking&apiKey=4df4c1d6c6b74ae49f8b5f35ed51b32a",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        -576,
+        -48
+      ],
+      "id": "89b2c9db-91d0-45b2-9786-a51c22b89869",
+      "name": "HTTP Request"
+    },
+    {
+      "parameters": {
+        "jsCode": "const inputItems = $input.all();\n\nreturn inputItems[0].json.articles.map(article => {\n  return {\n    json: {\n      title: article.title || \"\",\n      snippet: article.description || \"\",\n      link: article.url || \"\",\n      timestamp: new Date().toISOString()\n    }\n  };\n});"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -336,
+        -48
+      ],
+      "id": "8b49a627-c581-44d9-a33a-bfbb4ba1709e",
+      "name": "Code in JavaScript"
+    },
+    {
+      "parameters": {
+        "jsCode": "const items = $input.all();\n\nconst negativeKeywords = [\n  \"scam\", \"fraud\", \"bad\", \"issue\", \"broken\", \"hack\", \"breach\", \"fail\", \"leak\"\n];\n\nconst positiveKeywords = [\n  \"amazing\", \"great\", \"excellent\", \"love\", \"best\", \"secure\", \"fast\", \"success\"\n];\n\nreturn items.map(item => {\n  const text = ((item.json.title || \"\") + \" \" + (item.json.snippet || \"\")).toLowerCase();\n\n  let sentiment = \"neutral\";\n\n  if (negativeKeywords.some(word => text.includes(word))) {\n    sentiment = \"negative\";\n  } else if (positiveKeywords.some(word => text.includes(word))) {\n    sentiment = \"positive\";\n  }\n\n  return {\n    json: {\n      ...item.json,\n      sentiment\n    }\n  };\n});"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -128,
+        -48
+      ],
+      "id": "690314dd-2017-4ddf-9aa2-9e9d4439e089",
+      "name": "Code in JavaScript1"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "81ef2a7d-0032-4354-bd9f-449abc5d1a65",
+              "leftValue": "={{ $json.sentiment }}",
+              "rightValue": "negative",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        64,
+        -48
+      ],
+      "id": "b9ad6cb2-8013-425f-9fb1-dd058b2eaaf2",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "chatId": "6932972749",
+        "text": "=🚨 NEGATIVE MENTION DETECTED  \n\n📰 {{$json.title}} \n\n📝 {{$json.snippet}} \n\n🔗 {{$json.link}}",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        320,
+        -192
+      ],
+      "id": "5115fc9a-db15-40ef-88fb-8ac6de13aa90",
+      "name": "Send a text message",
+      "webhookId": "5f5a600c-dd2d-40a2-b63e-141b6b7be486",
+      "credentials": {
+        "telegramApi": {
+          "id": "iZ2AJr1DNPLBHOCr",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "658f0fb7-9eda-41fc-8458-057f28026257",
+              "leftValue": "={{ $json.sentiment }}",
+              "rightValue": "positive",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        272,
+        16
+      ],
+      "id": "9a526428-3b8a-4c65-981b-9fcd02b7ac8f",
+      "name": "If1"
+    },
+    {
+      "parameters": {
+        "operation": "create",
+        "base": {
+          "__rl": true,
+          "value": "appyfI8Xjqk0A1b2k",
+          "mode": "list",
+          "cachedResultName": "Social Media Monitoring",
+          "cachedResultUrl": "https://airtable.com/appyfI8Xjqk0A1b2k"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tbllO0Zknd0XZWdbP",
+          "mode": "list",
+          "cachedResultName": "Sentiments",
+          "cachedResultUrl": "https://airtable.com/appyfI8Xjqk0A1b2k/tbllO0Zknd0XZWdbP"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Title": "={{ $json.title }}",
+            "Snippet": "={{ $json.snippet }}",
+            "Link": "={{ $json.link }}",
+            "Timestamp": "={{ $json.timestamp }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Title",
+              "displayName": "Title",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Snippet",
+              "displayName": "Snippet",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Link",
+              "displayName": "Link",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Timestamp",
+              "displayName": "Timestamp",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.2,
+      "position": [
+        512,
+        -64
+      ],
+      "id": "b2d07d90-d4bc-44f0-a932-9ce9acb846f3",
+      "name": "Create a record",
+      "credentials": {
+        "airtableTokenApi": {
+          "id": "2xzyjgYMn8Xhf3qO",
+          "name": "Airtable Personal Access Token account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1J6ra0PsTbAPibMQF4H6bwjoalgf9WXZGfG_oqu4Ci_0",
+          "mode": "list",
+          "cachedResultName": "Social Media Monitoring",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1J6ra0PsTbAPibMQF4H6bwjoalgf9WXZGfG_oqu4Ci_0/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1J6ra0PsTbAPibMQF4H6bwjoalgf9WXZGfG_oqu4Ci_0/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Timestamp": "={{ $('If').item.json.timestamp }}",
+            "Title": "={{ $('If').item.json.title }}",
+            "Snippet": "={{ $('If').item.json.snippet }}",
+            "Sentiment": "={{ $('If').item.json.sentiment }}",
+            "Link": "={{ $('If').item.json.link }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Timestamp",
+              "displayName": "Timestamp",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Title",
+              "displayName": "Title",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Snippet",
+              "displayName": "Snippet",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Sentiment",
+              "displayName": "Sentiment",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Link",
+              "displayName": "Link",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        592,
+        -256
+      ],
+      "id": "c1946bce-3f5f-4100-9cb0-edc815cb565f",
+      "name": "Append row in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "VFvGJjv1i4ILNpc5",
+          "name": "Google Sheets OAuth2 API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1J6ra0PsTbAPibMQF4H6bwjoalgf9WXZGfG_oqu4Ci_0",
+          "mode": "list",
+          "cachedResultName": "Social Media Monitoring",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1J6ra0PsTbAPibMQF4H6bwjoalgf9WXZGfG_oqu4Ci_0/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1J6ra0PsTbAPibMQF4H6bwjoalgf9WXZGfG_oqu4Ci_0/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Timestamp": "={{ $('If1').item.json.timestamp }}",
+            "Title": "={{ $('If1').item.json.title }}",
+            "Snippet": "={{ $('If1').item.json.snippet }}",
+            "Sentiment": "={{ $('If1').item.json.sentiment }}",
+            "Link": "={{ $('If1').item.json.link }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Timestamp",
+              "displayName": "Timestamp",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Title",
+              "displayName": "Title",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Snippet",
+              "displayName": "Snippet",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Sentiment",
+              "displayName": "Sentiment",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Link",
+              "displayName": "Link",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        720,
+        -64
+      ],
+      "id": "d1c84bce-c7b7-4bd8-9773-32abb64be5c5",
+      "name": "Append row in sheet1",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "VFvGJjv1i4ILNpc5",
+          "name": "Google Sheets OAuth2 API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1J6ra0PsTbAPibMQF4H6bwjoalgf9WXZGfG_oqu4Ci_0",
+          "mode": "list",
+          "cachedResultName": "Social Media Monitoring",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1J6ra0PsTbAPibMQF4H6bwjoalgf9WXZGfG_oqu4Ci_0/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1J6ra0PsTbAPibMQF4H6bwjoalgf9WXZGfG_oqu4Ci_0/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Title": "={{ $('If').item.json.title }}",
+            "Snippet": "={{ $('If').item.json.snippet }}",
+            "Link": "={{ $('If').item.json.link }}",
+            "Sentiment": "={{ $('If').item.json.sentiment }}",
+            "Timestamp": "={{ $('If').item.json.timestamp }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Timestamp",
+              "displayName": "Timestamp",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Title",
+              "displayName": "Title",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Snippet",
+              "displayName": "Snippet",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Sentiment",
+              "displayName": "Sentiment",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Link",
+              "displayName": "Link",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        480,
+        112
+      ],
+      "id": "3ecbfa66-bbcf-4df0-ab86-0d437bba938e",
+      "name": "Append row in sheet2",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "VFvGJjv1i4ILNpc5",
+          "name": "Google Sheets OAuth2 API"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript1": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Send a text message",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "If1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If1": {
+      "main": [
+        [
+          {
+            "node": "Create a record",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Append row in sheet2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send a text message": {
+      "main": [
+        [
+          {
+            "node": "Append row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create a record": {
+      "main": [
+        [
+          {
+            "node": "Append row in sheet1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "93de0112-a8f8-48b1-95cd-1458a1dadb20",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "09c4607150c29059a99aadeb30b5a6372c27ddd9ed8e3f6f48a7c4b8f74637c0"
+  },
+  "id": "ISk26D5u75LgP3Ok",
+  "tags": []
+}
